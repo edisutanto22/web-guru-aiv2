@@ -16,6 +16,7 @@
     <button class="nav-item" data-page="absensi">📋 <span>Absensi</span></button>
     <button class="nav-item" data-page="nilai">📊 <span>Penilaian</span></button>
     <button class="nav-item" data-page="ai">🤖 <span>AI Guru</span></button>
+    <button class="nav-item" data-page="jurnal">📑 <span>Jurnal Mengajar</span></button>
     <button class="nav-item" data-page="laporan">📑 <span>Laporan</span></button>
     <button class="nav-item" data-page="pengaturan">⚙️ <span>Pengaturan</span></button>
   </nav>
@@ -114,6 +115,15 @@
   </div>
 </section>
 
+  <section id="jurnal" class="page">
+  <div class="section-head"><div><h2>Jurnal Mengajar</h2><p>Ringkasan data yang tersimpan di browser.</p></div><button class="primary" onclick="window.print()">🖨 Cetak</button></div>
+  <div class="report-grid">
+    <div class="card"><h3>Rekap Siswa</h3><div id="reportStudents"></div></div>
+    <div class="card"><h3>Rekap Nilai</h3><div id="reportScores"></div></div>
+    <div class="card"><h3>Rekap Absensi</h3><div id="reportAttendance"></div></div>
+  </div>
+</section>
+  
 <section id="pengaturan" class="page">
   <div class="section-head"><div><h2>Pengaturan</h2><p>Kelola profil dan data aplikasi V2.</p></div></div>
   <div class="card settings">
