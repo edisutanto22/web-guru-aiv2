@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="WEB GURU AI V2 - Administrasi Guru Digital">
+<title>WEB GURU AI V2</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-icon">👨‍🏫</div><div><strong>WEB GURU AI</strong><small>Administrasi Guru Digital</small></div></div>
+  <nav>
+    <button class="nav-item active" data-page="dashboard">🏠 <span>Dashboard</span></button>
+    <button class="nav-item" data-page="siswa">👨‍🎓 <span>Data Siswa</span></button>
+    <button class="nav-item" data-page="absensi">📋 <span>Absensi</span></button>
+    <button class="nav-item" data-page="nilai">📊 <span>Penilaian</span></button>
+    <button class="nav-item" data-page="ai">🤖 <span>AI Guru</span></button>
+    <button class="nav-item" data-page="laporan">📑 <span>Laporan</span></button>
+    <button class="nav-item" data-page="pengaturan">⚙️ <span>Pengaturan</span></button>
+  </nav>
+  <div class="sidebar-footer">WEB GURU AI V2.0</div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn">☰</button>
+  <div><h1 id="pageTitle">Dashboard</h1><p id="pageSubtitle">Pusat administrasi guru digital</p></div>
+  <div class="top-right"><span id="today"></span><button class="theme-btn" id="themeBtn" title="Mode gelap/terang">🌙</button></div>
+</header>
+
+<section id="dashboard" class="page active">
+  <div class="hero"><div><span class="eyebrow">WEB GURU AI V2</span><h2>Administrasi Guru Lebih Terintegrasi</h2><p>Kelola siswa, absensi, nilai, laporan, dan alat bantu AI dalam satu aplikasi.</p></div><div class="hero-icon">🤖</div></div>
+  <div class="stats">
+    <div class="stat"><span>👨‍🎓</span><div><small>Total Siswa</small><strong id="statSiswa">0</strong></div></div>
+    <div class="stat"><span>✅</span><div><small>Hadir Hari Ini</small><strong id="statHadir">0</strong></div></div>
+    <div class="stat"><span>📊</span><div><small>Nilai Tersimpan</small><strong id="statNilai">0</strong></div></div>
+    <div class="stat"><span>📈</span><div><small>Rata-rata Nilai</small><strong id="statRata">0</strong></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-head"><h3>Akses Cepat</h3></div><div class="quick">
+      <button data-page="siswa">👨‍🎓<b>Data Siswa</b><small>Kelola peserta didik</small></button>
+      <button data-page="absensi">📋<b>Absensi</b><small>Catat kehadiran</small></button>
+      <button data-page="nilai">📊<b>Penilaian</b><small>Input & rekap nilai</small></button>
+      <button data-page="ai">🤖<b>AI Guru</b><small>Ide soal & materi</small>
+      </button>
+    </div></div>
+    <div class="card"><div class="card-head"><h3>Ringkasan Kelas</h3></div><div id="classSummary" class="class-summary"></div></div>
+  </div>
+</section>
+
+<section id="siswa" class="page">
+  <div class="section-head"><div><h2>Data Siswa</h2><p>Kelola data peserta didik dan kelas.</p></div><button class="primary" id="exportStudents">⬇ Export CSV</button></div>
+  <div class="card">
+    <form id="studentForm" class="form-grid">
+      <input id="nis" placeholder="NIS" required><input id="nama" placeholder="Nama siswa" required>
+      <input id="kelas" placeholder="Kelas" required><input id="jk" placeholder="L/P" maxlength="1">
+      <button class="primary" type="submit">＋ Tambah Siswa</button>
+    </form>
+  </div>
+  <div class="card"><div class="toolbar"><input id="studentSearch" placeholder="🔎 Cari NIS, nama, kelas..."><span id="studentCount"></span></div>
+  <div class="table-wrap"><table><thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>L/P</th><th>Aksi</th></tr></thead><tbody id="studentTable"></tbody></table></div></div>
+</section>
+
+<section id="absensi" class="page">
+  <div class="section-head"><div><h2>Absensi</h2><p>Catat kehadiran berdasarkan tanggal.</p></div>
+  <input class="date-input" type="date" id="attendanceDate"></div>
+  <div class="card"><div class="attendance-summary">
+    <span>Hadir <b id="countHadir">0</b></span><span>Izin <b id="countIzin">0</b></span><span>Sakit <b id="countSakit">0</b></span><span>Alpa <b id="countAlpa">0</b></span>
+  </div><div class="table-wrap"><table><thead><tr><th>No</th><th>NIS</th><th>Nama</th><th>Kelas</th><th>Status</th></tr></thead><tbody id="attendanceTable"></tbody></table></div></div>
+</section>
+
+<section id="nilai" class="page">
+  <div class="section-head"><div><h2>Penilaian</h2><p>Input nilai dan lihat rekap per siswa.</p></div><button class="primary" id="exportScores">⬇ Export CSV</button></div>
+  <div class="card"><form id="scoreForm" class="form-grid">
+    <select id="scoreStudent" required><option value="">Pilih siswa</option></select>
+    <input id="assessment" placeholder="Jenis penilaian" required><input id="score" type="number" min="0" max="100" placeholder="Nilai 0-100" required>
+    <button class="primary" type="submit">＋ Simpan Nilai</button>
+  </form></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>No</th><th>Siswa</th><th>Kelas</th><th>Penilaian</th><th>Nilai</th><th>Aksi</th></tr></thead><tbody id="scoreTable"></tbody></table></div></div>
+</section>
+
+<section id="ai" class="page">
+  <div class="section-head"><div><h2>AI Guru</h2><p>Generator lokal V2 untuk membantu persiapan pembelajaran.</p></div></div>
+  <div class="ai-grid">
+    <div class="card ai-card"><div class="ai-icon">📝</div><h3>Generator Soal</h3><p>Masukkan materi dan pilih bentuk soal.</p>
+      <input id="qTopic" placeholder="Contoh: Informatika - Revolusi Industri 4.0">
+      <select id="qType"><option value="pg">Pilihan Ganda</option><option value="uraian">Uraian</option></select>
+      <input id="qCount" type="number" min="1" max="20" value="5" placeholder="Jumlah soal">
+      <button class="primary" id="generateQuestions">Buat Soal</button><div class="ai-output" id="questionOutput">Hasil soal akan muncul di sini.</div>
+    </div>
+    <div class="card ai-card"><div class="ai-icon">📚</div><h3>Rangkuman Materi</h3><p>Buat struktur ringkas untuk bahan ajar.</p>
+      <input id="mTopic" placeholder="Contoh: Kecerdasan Buatan">
+      <button class="primary" id="generateSummary">Buat Rangkuman</button><div class="ai-output" id="summaryOutput">Hasil rangkuman akan muncul di sini.</div>
+    </div>
+    <div class="card ai-card"><div class="ai-icon">🎯</div><h3>Tujuan Pembelajaran</h3><p>Susun contoh tujuan pembelajaran berdasarkan materi.</p>
+      <input id="tpTopic" placeholder="Contoh: Subnetting">
+      <button class="primary" id="generateTP">Buat TP</button><div class="ai-output" id="tpOutput">Hasil TP akan muncul di sini.</div>
+    </div>
+    <div class="card ai-card"><div class="ai-icon">💡</div><h3>Ide Aktivitas</h3><p>Generate contoh aktivitas kelas.</p>
+      <input id="actTopic" placeholder="Contoh: IoT">
+      <button class="primary" id="generateAct">Buat Aktivitas</button><div class="ai-output" id="actOutput">Hasil aktivitas akan muncul di sini.</div>
+    </div>
+  </div>
+  <div class="notice">💡 V2 masih menggunakan generator template lokal. Belum mengirim data ke layanan AI eksternal. Integrasi API AI dapat ditambahkan pada versi berikutnya.</div>
+</section>
+
+<section id="laporan" class="page">
+  <div class="section-head"><div><h2>Laporan</h2><p>Ringkasan data yang tersimpan di browser.</p></div><button class="primary" onclick="window.print()">🖨 Cetak</button></div>
+  <div class="report-grid">
+    <div class="card"><h3>Rekap Siswa</h3><div id="reportStudents"></div></div>
+    <div class="card"><h3>Rekap Nilai</h3><div id="reportScores"></div></div>
+    <div class="card"><h3>Rekap Absensi</h3><div id="reportAttendance"></div></div>
+  </div>
+</section>
+
+<section id="pengaturan" class="page">
+  <div class="section-head"><div><h2>Pengaturan</h2><p>Kelola profil dan data aplikasi V2.</p></div></div>
+  <div class="card settings">
+    <h3>Profil Guru</h3>
+    <label>Nama Guru<input id="teacherName" placeholder="Nama Guru"></label>
+    <label>Sekolah<input id="schoolName" placeholder="Nama Sekolah"></label>
+    <label>Mata Pelajaran<input id="subjectName" placeholder="Mata Pelajaran"></label>
+    <button class="primary" id="saveProfile">Simpan Profil</button>
+    <hr>
+    <h3>Data Aplikasi</h3>
+    <div class="settings-actions"><button class="secondary" id="backupBtn">⬇ Backup JSON</button><label class="file-btn">⬆ Restore JSON<input type="file" id="restoreFile" accept=".json"></label><button class="danger" id="resetBtn">🗑 Hapus Semua Data</button></div>
+  </div>
+</section>
+
+<footer>WEB GURU AI V2.0 • GitHub Pages Ready • Data V2 tersimpan lokal pada browser</footer>
+</main>
+<script src="script.js"></script>
+</body>
+</html>
